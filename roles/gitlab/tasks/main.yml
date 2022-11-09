@@ -1,15 +1,15 @@
-#- import_tasks: prerequisites.yml
-#
-#- name: Gather the package facts
-#  ansible.builtin.package_facts:
-#    manager: auto
-#
-#- name: Check if gitlab-ee is installed
-#  ansible.builtin.set_fact:
-#    ansible_installed: true
-#  when: "'gitlab-ee' in ansible_facts.packages"
-#
-#- import_tasks: setup.yml
-#  when: ansible_installed is not defined
+- import_tasks: prerequisites.yml
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Check if gitlab-ee is installed
+  ansible.builtin.set_fact:
+    ansible_installed: true
+  when: "'gitlab-ee' in ansible_facts.packages"
+
+- import_tasks: setup.yml
+  when: ansible_installed is not defined
 
 - import_tasks: configure.yml
