@@ -1,0 +1,10 @@
+---
+gitlab_ldap_enabled: false
+
+# Location of gitlab backups, can be a mounted directory
+gitlab_backup_path: /var/opt/gitlab/backups
+gitlab_backup_gitaly_path: /opt/gitlab/embedded/bin/gitaly-backup
+# time in seconds after which backups will be deleted
+gitlab_backup_keep_time: 604800
+
+gitlab_registry_path: /var/opt/gitlab/gitlab-rails/shared/registry

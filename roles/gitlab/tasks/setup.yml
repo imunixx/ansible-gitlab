@@ -1,0 +1,9 @@
+- name: Setup gitlab repository
+  ansible.builtin.shell: 'curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | bash'
+  args:
+    executable: /bin/bash
+
+- name: Install gitlab-ee
+  apt:
+    name: gitlab-ee
+    state: present

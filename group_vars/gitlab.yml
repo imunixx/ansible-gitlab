@@ -1,0 +1,25 @@
+gitlab_external_url: http://gitlab.klackwerk.de
+
+gitlab_smtp_enable: true
+gitlab_smtp_address: mail.backslashseven.com
+gitlab_smtp_port: 587
+gitlab_smtp_user: nils@klackwerk.de
+gitlab_smtp_password: "{{ vault_gitlab_smtp_password }}"
+gitlab_smtp_domain: klackwerk.de
+gitlab_smtp_authentication: login
+gitlab_smtp_enable_starttls_auto: true
+gitlab_smtp_tls: false
+gitlab_smtp_pool: false
+
+gitlab_email_from: nils@klackwerk.de
+gitlab_email_display_name: GitLab
+gitlab_email_reply_to: noreply@klackwerk.de
+gitlab_email_subject_suffix: '[DEV]'
+
+vault_gitlab_smtp_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32326533616263626631383632393566653639343365626539646231346438383539323337663639
+          3031633064653235366661303961386336386662646233320a306139663639666564653731613862
+          66373164353966646236303338623836643862633563393931663438353637306265336639623639
+          6131376339343439610a616232313232333537383463326366323461393739653762346566393563
+          3837

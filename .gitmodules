@@ -1,0 +1,6 @@
+[submodule "roles/timezone"]
+	path = roles/timezone
+	url = https://github.com/KornKalle/ansible-tz.git
+[submodule "roles/docker"]
+	path = roles/docker
+	url = https://github.com/KornKalle/ansible-docker.git

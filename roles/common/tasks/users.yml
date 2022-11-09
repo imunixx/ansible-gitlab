@@ -1,0 +1,12 @@
+- name: Read variables
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - "{{ inventory_hostname }}.yml"
+        - "default.yml"
+      paths: "./vars/"
+- name: Deploy SSH-Keys to remote host
+  authorized_key:
+    user: root
+    key: "{{ keystodeploy|map(attribute='sshkey')|join('\n') }}"
+    exclusive: true

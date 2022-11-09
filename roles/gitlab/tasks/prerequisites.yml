@@ -1,0 +1,10 @@
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - postfix
+    - gnupg
+    - debian-archive-keyring
+    - libarchive13
+

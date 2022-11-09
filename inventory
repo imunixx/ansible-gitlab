@@ -1,0 +1,12 @@
+all:
+  hosts:
+    gitlab_host:
+  children:
+    gitlab:
+      hosts:
+        gitlab_host:
+          ansible_host: 10.211.55.6
+    gitlab_runner:
+      hosts:
+        gitlab_runner_host:
+          ansible_host: 10.211.55.7

@@ -1,0 +1,4 @@
+---
+keystodeploy:
+  - name: Nils Berg
+    sshkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqyC9w/JeLBdPXWR0XMNYXLyBXHjLIBw6mvOGaVoxWG nils@Taco
