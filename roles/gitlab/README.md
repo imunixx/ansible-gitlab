@@ -1,38 +1,41 @@
-Role Name
+GitLab
 =========
 
-A brief description of the role goes here.
+This role installs, configures and manages a GitLab Omnibus installation on Debian Systems. Core features are seamless installation and basic configuration of core features, which are:
+
+- SMTP
+- LDAP Auth
+- Backups and their schedule
+- Container registry and its cleanup policy
+- GitLab Dependency Proxy
+- Core Security Requirements for ssh keys
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Python should be <=3.9 on the target host, the GitLab Hardware Requirements should be met (2 Cores / 4GB RAM)
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+You can find an overview over all available variables in [defaults/main.yml](defaults/main.yml), naming matches the GitLab variables as close as possible.
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - hosts: gitlab
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: kornkalle.gitlab }
 
 License
 -------
 
-BSD
+Proprietary
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+nils@klackwerk.de
