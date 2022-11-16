@@ -1,0 +1,20 @@
+- name: API | Get current configuration values
+  ansible.builtin.uri:
+    url: "{{ gitlab_external_url }}/api/v4/application/settings"
+    headers:
+      PRIVATE-TOKEN: "{{ gitlab_access_token }}"
+    return_content: yes
+  register: ansible_application_settings_current
+
+- name: API | Set {{ item.param }} to {{ item.value }}
+  ansible.builtin.uri:
+    url: "{{ gitlab_external_url }}/api/v4/application/settings?{{item.param}}={{item.value}}"
+    headers:
+      PRIVATE-TOKEN: "{{ gitlab_access_token }}"
+    method: PUT
+  # TODO: find a way to differ between real changes and non-existent params
+    # A fail means that you most probably passed a parameter which does not exist
+  #failed_when: "{{ ansible_application_settings_current.json | json_query(item.param) == '' }}"
+  changed_when: "{{ ansible_application_settings_current.json | json_query(item.param) != item.value }}"
+  with_items:
+    - "{{ gitlab_application_settings }}"

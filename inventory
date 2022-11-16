@@ -1,6 +1,6 @@
 all:
   children:
-    gitlab_main:
+    gitlab:
       hosts:
         gitlab.example.com:
     gitlab_runner:

@@ -6,10 +6,15 @@
 
 - name: Check if gitlab-ee is installed
   ansible.builtin.set_fact:
-    ansible_installed: true
+    gitlab_installed: true
   when: "'gitlab-ee' in ansible_facts.packages"
 
 - import_tasks: setup.yml
-  when: ansible_installed is not defined
+  when: gitlab_installed is not defined
 
 - import_tasks: configure.yml
+
+# These tasks need a valid gitlab_access_token with api privileges,
+# see http://gitlab.example.com/-/profile/personal_access_tokens
+- import_tasks: configure_api.yml
+  when: gitlab_installed is defined and gitlab_access_token is defined and gitlab_access_token != ''

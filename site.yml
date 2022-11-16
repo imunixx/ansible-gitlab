@@ -1,0 +1,12 @@
+- hosts: all
+  roles:
+    - role: common
+    - role: timezone
+
+- hosts: gitlab
+  roles:
+    - role: gitlab
+
+- hosts: gitlab_runner
+  roles:
+    - role: docker

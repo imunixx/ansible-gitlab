@@ -493,7 +493,49 @@ gitlab_rails['gitlab_email_subject_suffix'] = '{{ gitlab_email_subject_suffix }}
 ###!   in yaml format and the spaces must be retained. Using tabs will not work.**
 
 gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled|lower }}
-# gitlab_rails['prevent_ldap_sign_in'] = false
+gitlab_rails['prevent_ldap_sign_in'] = {{ false|lower if gitlab_ldap_enabled | bool else true|lower}}
+
+{% if gitlab_ldap_enabled and gitlab_ldap_host != '' %}
+gitlab_rails['ldap_servers'] = {
+    'main' => {
+      'label' => 'LDAP',
+      'host' =>  '{{ gitlab_ldap_host }}',
+      'port' => {{ gitlab_ldap_port }},
+      'uid' => '{{ gitlab_ldap_uid }}',
+      'encryption' => '{{ gitlab_ldap_encryption }}',
+      'verify_certificates' => true,
+      'bind_dn' => '{{ gitlab_ldap_bind_dn }}',
+      'password' => '{{ gitlab_ldap_bind_password }}',
+      'tls_options' => {
+        'ca_file' => '{{ gitlab_ldap_tls_ca_file }}',
+        'ssl_version' => '{{ gitlab_ldap_tls_ssl_version }}',
+        'ciphers' => '{{ gitlab_ldap_ciphers }}',
+        'cert' => '{{ gitlab_ldap_tls_cert }}',
+        'key' => '{{ gitlab_ldap_tls_key }}'
+      },
+   'timeout' => 10,
+   'active_directory' => {{ gitlab_ldap_active_directory|lower }},
+   'allow_username_or_email_login' => {{ gitlab_ldap_allow_username_or_email_login|lower }},
+   'block_auto_created_users' => {{ gitlab_ldap_block_auto_created_users|lower }},
+   'base' => '{{ gitlab_ldap_base }}',
+   'user_filter' => '{{ gitlab_ldap_user_filter }}',
+   'attributes' => {
+     'username' => [{{ gitlab_ldap_attributes_username }}],
+     'email' => [{{ gitlab_ldap_attributes_email }}],
+     'name' => '{{ gitlab_ldap_attributes_name }}',
+     'first_name' => '{{ gitlab_ldap_attributes_first_name }}',
+     'last_name' => '{{ gitlab_ldap_attributes_last_name }}'
+   },
+   'lowercase_usernames' => {{ gitlab_ldap_lowercase_usernames|lower }},
+
+   # EE Only
+   'group_base' => '',
+   'admin_group' => '',
+   'external_groups' => [],
+   'sync_ssh_keys' => false
+  }
+}
+{% endif %}
 
 ###! **remember to close this block with 'EOS' below**
 # gitlab_rails['ldap_servers'] = YAML.load <<-'EOS'
@@ -792,13 +834,13 @@ gitlab_rails['initial_root_password'] = "{{ gitlab_initial_root_password }}"
 ##! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html
 ################################################################################
 
-# registry_external_url 'https://registry.example.com'
+registry_external_url '{{ gitlab_external_url }}:5050'
 
 ### Settings used by GitLab application
 # gitlab_rails['registry_enabled'] = true
 # gitlab_rails['registry_host'] = "registry.gitlab.example.com"
 # gitlab_rails['registry_port'] = "5005"
-gitlab_rails['registry_path'] = "{{ gitlab_registry_path }}"
+gitlab_rails['registry_path'] = "{{ gitlab_container_registry_path }}"
 
 # Notification secret, it's used to authenticate notification requests to GitLab application
 # You only need to change this when you use external Registry service, otherwise
@@ -1431,8 +1473,8 @@ gitlab_rails['registry_path'] = "{{ gitlab_registry_path }}"
 ##! if ssl_verify_client on, verification depth in the client certificates chain
 # nginx['ssl_verify_depth'] = "1"
 
-# nginx['ssl_certificate'] = "/etc/gitlab/ssl/#{node['fqdn']}.crt"
-# nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/#{node['fqdn']}.key"
+nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate_path }}"
+nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key_path }}"
 # nginx['ssl_ciphers'] = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
 # nginx['ssl_prefer_server_ciphers'] = "off"
 
@@ -2503,7 +2545,7 @@ gitlab_rails['registry_path'] = "{{ gitlab_registry_path }}"
 ################################################################################
 # Let's Encrypt integration
 ################################################################################
-# letsencrypt['enable'] = nil
+letsencrypt['enable'] = {{ gitlab_ssl_letsencrypt_enable|lower }}
 # letsencrypt['contact_emails'] = [] # This should be an array of email addresses to add as contacts
 # letsencrypt['group'] = 'root'
 # letsencrypt['key_size'] = 2048

@@ -1,16 +1,67 @@
 ---
-gitlab_ldap_enabled: false
+# This will only be respected during first-time setup. It is recommended to vault this value and to change it regulary
+gitlab_initial_root_password: 'yoursecurepasshere'
+# For configuration via API we need a valid access_token with api privileges, should be vaulted
+gitlab_access_token: ''
 
+# Your external url, using https and setting gitlab_ssl_letsencrypt_enable true will automatically trigger the request of a let`s encrypt certificate
+gitlab_external_url: 'http://gitlab.example.com'
+
+## SSL
+gitlab_ssl_letsencrypt_enable: false
+gitlab_ssl_certificate_path: "/etc/gitlab/ssl/#{node['fqdn']}.crt"
+gitlab_ssl_certificate_key_path: "/etc/gitlab/ssl/#{node['fqdn']}.key"
+
+## LDAP
+# See https://docs.gitlab.com/ee/administration/auth/ldap/ for config example
+gitlab_ldap_enabled: false
+gitlab_ldap_host: ''
+gitlab_ldap_port: 636
+gitlab_ldap_uid: sAMAccountName
+gitlab_ldap_encryption: simple_tls
+gitlab_ldap_bind_dn: '_the_full_dn_of_the_user_you_will_bind_with'
+gitlab_ldap_bind_password: ''
+gitlab_ldap_tls_ca_file: ''
+gitlab_ldap_tls_ssl_version: ''
+gitlab_ldap_ciphers: ''
+gitlab_ldap_tls_cert: ''
+gitlab_ldap_tls_key: ''
+gitlab_ldap_active_directory: false
+gitlab_ldap_allow_username_or_email_login: true
+gitlab_ldap_block_auto_created_users: false
+gitlab_ldap_base: 'dc=example,dc=com'
+gitlab_ldap_user_filter: ''
+gitlab_ldap_attributes_username: "'uid', 'userid', 'sAMAccountName'"
+gitlab_ldap_attributes_email: "'mail', 'email', 'userPrincipalName'"
+gitlab_ldap_attributes_name: 'cn'
+gitlab_ldap_attributes_first_name: 'givenName'
+gitlab_ldap_attributes_last_name: 'sn'
+gitlab_ldap_lowercase_usernames: false
+
+## Backup
+# GitLab Backup Schedule config
+gitlab_backup_cron_enabled: true
+gitlab_backup_cron_minute: 0
+gitlab_backup_cron_hour: 2
+gitlab_backup_cron_weekday: '2,5'
 # Location of gitlab backups, can be a mounted directory
 gitlab_backup_path: /var/opt/gitlab/backups
 gitlab_backup_gitaly_path: /opt/gitlab/embedded/bin/gitaly-backup
 # time in seconds after which backups will be deleted
 gitlab_backup_keep_time: 604800
 
-gitlab_registry_path: /var/opt/gitlab/gitlab-rails/shared/registry
+## Container Registry
+# Location of the container registry, you need to move the data manually when changing the path after setup
+gitlab_container_registry_path: /var/opt/gitlab/gitlab-rails/shared/registry
+# This will create a cron job for weekly container registry cleanup without downtime
+gitlab_container_registry_garbage_collect: false
+# Cron timer for registry cleanup, defaulting to sunday 2 am
+gitlab_container_registry_garbage_collect_minute: 0
+gitlab_container_registry_garbage_collect_hour: 2
+gitlab_container_registry_garbage_collect_weekday: 2
 
-gitlab_external_url: 'http://gitlab.example.com'
-
+## SMTP
+# Configure your external SMTP Server here
 gitlab_smtp_enable: false
 gitlab_smtp_address: smtp.example.com
 gitlab_smtp_port: 587
@@ -22,12 +73,31 @@ gitlab_smtp_enable_starttls_auto: true
 gitlab_smtp_tls: false
 gitlab_smtp_pool: false
 
+# GitLab Mail contact information
 gitlab_email_from: gitlab@example.com
 gitlab_email_display_name: Example
 gitlab_email_reply_to: noreply@example.com
 gitlab_email_subject_suffix:
 
-gitlab_initial_root_password: 'yoursecurepasshere'
-
-
-
+## Application settings
+# You can add every parameter found in the official documentation to the dict
+# https://docs.gitlab.com/ee/api/settings.html#list-of-settings-that-can-be-accessed-via-api-calls
+gitlab_application_settings:
+  # Set min key lenths, -1 disables the key type
+  - param: 'rsa_key_restriction'
+    value: -1
+  - param: 'dsa_key_restriction'
+    value: -1
+  - param: 'ecdsa_key_restriction'
+    value: 0
+  - param: 'ecdsa_sk_key_restriction'
+    value: 0
+  - param: 'ed25519_key_restriction'
+    value: 0
+  - param: 'ed25519_sk_key_restriction'
+    value: 0
+# Set wether or not a user should need to be accepted by an admin after signup
+  - param: 'require_admin_approval_after_user_signup'
+    value: true
+  - param: 'signup_enabled'
+    value: true
