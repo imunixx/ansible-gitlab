@@ -1,5 +1,0 @@
-- hosts: gitlab
-  roles:
-    - role: common
-    - role: timezone
-    - role: gitlab

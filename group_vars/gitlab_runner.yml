@@ -1,0 +1,4 @@
+gitlab_runner_gitlab_url: http://gitlab.example.com
+gitlab_runner_registration_token: 'dUD3Tv_Tcp9GXzSLWyrh'
+
+gitlab_runner_name: 'test'

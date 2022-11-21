@@ -10,6 +10,9 @@ This role installs, configures and manages a GitLab Omnibus installation on Debi
 - GitLab Dependency Proxy
 - Core Security Requirements for ssh keys
 
+Please note, that you need to run this role twice when performing a first-time installation.  
+You will need to get a GitLab API Access Token via GitLab GUI after installation for configurations made through GitLab API.  
+See https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html for further information.
 
 Requirements
 ------------

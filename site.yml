@@ -10,3 +10,4 @@
 - hosts: gitlab_runner
   roles:
     - role: docker
+    - role: gitlab_runner
