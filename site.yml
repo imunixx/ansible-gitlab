@@ -2,6 +2,7 @@
   roles:
     - role: common
     - role: timezone
+    - role: ufw
 
 - hosts: gitlab
   roles:

@@ -1,3 +1,45 @@
-- name: Allow everything and enable UFW
+- name: packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ufw
+    - iproute2
+    - procps
+
+- name: configure | default (incoming) policy
+  community.general.ufw:
+    policy: "{{ ufw_default_incoming_policy }}"
+    direction: incoming
+  notify: reload ufw
+
+- name: configure | default (outgoing) policy
+  community.general.ufw:
+    policy: "{{ ufw_default_outgoing_policy }}"
+    direction: outgoing
+  notify: reload ufw
+
+- name: configure | rules
+  community.general.ufw:
+    rule: "{{ item.rule }}"
+    interface: "{{ item.interface | default('') }}"
+    direction: "{{ item.direction | default('in') }}"
+    from_ip: "{{ item.from_ip | default('any') }}"
+    to_ip: "{{ item.to_ip | default('any') }}"
+    from_port: "{{ item.from_port | default('') }}"
+    to_port: "{{ item.to_port | default('') }}"
+    protocol: "{{ item.protocol | default('any') }}"
+    route: "{{ item.route | default(omit) }}"
+    log: "{{ item.log | default(false) }}"
+    comment: "{{ item.comment | default(omit) }}"
+  with_items: "{{ ufw_rules }}"
+  notify: reload ufw
+
+- name: configure | logging
+  community.general.ufw:
+    logging: "{{ ufw_logging }}"
+  notify: reload ufw
+
+- name: enable ufw
   community.general.ufw:
     state: enabled

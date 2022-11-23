@@ -7,3 +7,25 @@ vault_gitlab_host_sudo_password: !vault |
           63643033373164343665636264383932613864613762303763653263336262633261653831386432
           6230356130666639390a653430623936333130303737376362383065623963316433646563303430
           3839
+
+ufw_default_incoming_policy: deny
+ufw_default_outgoing_policy: allow
+ufw_logging: 'off'
+
+ufw_rules:
+  - rule: allow
+    interface: "{{ ansible_default_ipv4['interface'] }}"
+    to_port: 22
+    protocol: tcp
+  - rule: allow
+    interface: "{{ ansible_default_ipv4['interface'] }}"
+    to_port: 443
+    protocol: tcp
+  - rule: allow
+    interface: "{{ ansible_default_ipv4['interface'] }}"
+    to_port: 80
+    protocol: tcp
+  - rule: allow
+    interface: "{{ ansible_default_ipv4['interface'] }}"
+    to_port: 5050
+    protocol: tcp
