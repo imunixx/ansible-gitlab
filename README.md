@@ -7,7 +7,13 @@ This repository contains a full ansible setup which is capable of setting up and
 Roles which are not dedicated for this job are loaded as submodules and should be initialized with 
 > git submodule init
 
+'sudo' won't be installed on a plain Debian Netinstall, install it via:
+> apt update && apt install sudo
+
 ## Getting Started
+
+For a detailed documentation of the GitLab role, see [roles/gitlab/README.md](roles/gitlab/README.md).  
+For a detailed documentation of the GitLab Runner role, see [roles/gitlab_runner/README.md](roles/gitlab_runner/README.md)
 
 You should provide your own inventory and replace the [inventory](./inventory) file. Also change the credentials according to your needs.
 Also refer to the [ansible.cfg](./ansible.cfg) file for credential and user configuration.
