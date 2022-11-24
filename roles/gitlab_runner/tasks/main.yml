@@ -14,8 +14,13 @@
     group: root
     mode: '0700'
 
+- name: Install pip3
+  ansible.builtin.apt:
+    name: pip3
+    state: present
+
 - name: Install docker-py
-  pip:
+  ansible.builtin.pip:
     name: docker
     state: present
 
