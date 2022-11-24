@@ -16,7 +16,7 @@
 
 - name: Install pip3
   ansible.builtin.apt:
-    name: pip3
+    name: python3-pip
     state: present
 
 - name: Install docker-py
