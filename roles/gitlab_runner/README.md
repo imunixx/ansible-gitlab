@@ -17,8 +17,6 @@ You can find an overview over all available variables in [defaults/main.yml](def
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: gitlab_runner
       roles:
          - { role: kornkalle.docker }

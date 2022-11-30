@@ -10,7 +10,7 @@ This role installs, configures and manages a GitLab Omnibus installation on Debi
 - GitLab Dependency Proxy
 - Core Security Requirements for ssh keys
 
-Please note, that you need to run this role twice when performing a first-time installation.  
+**Please note** You will need to run this role twice when performing a first-time installation.  
 You will need to get a GitLab API Access Token via GitLab GUI after installation for configurations made through GitLab API.  
 See https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html for further information.
 
@@ -26,8 +26,6 @@ You can find an overview over all available variables in [defaults/main.yml](def
 
 Example Playbook
 ----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: gitlab
       roles:
