@@ -7,7 +7,8 @@ The installations uses Docker socket binding as default and is compatible to doc
 Requirements
 ------------
 
-Docker must be installed on the target system
+Docker must be installed on the target system.  
+**You need to obtain the GitLab Runner registration token from your GitLab Instance (https://docs.gitlab.com/runner/register/)**
 
 Role Variables
 --------------
