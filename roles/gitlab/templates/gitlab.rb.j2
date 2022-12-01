@@ -384,8 +384,8 @@ gitlab_rails['gitlab_email_subject_suffix'] = '{{ gitlab_email_subject_suffix }}
 # }
 
 ### Git LFS
-# gitlab_rails['lfs_enabled'] = true
-# gitlab_rails['lfs_storage_path'] = "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
+gitlab_rails['lfs_enabled'] = {{ gitlab_lfs_enabled|lower }}
+gitlab_rails['lfs_storage_path'] = "{{ gitlab_lfs_storage_path }}"
 # gitlab_rails['lfs_object_store_enabled'] = false
 # gitlab_rails['lfs_object_store_proxy_download'] = false
 # gitlab_rails['lfs_object_store_remote_directory'] = "lfs-objects"
@@ -1042,7 +1042,7 @@ gitlab_rails['registry_path'] = "{{ gitlab_container_registry_path }}"
 # puma['enable'] = true
 # puma['ha'] = false
 # puma['worker_timeout'] = 60
-# puma['worker_processes'] = 2
+puma['worker_processes'] = {{ gitlab_puma_worker_processes }}
 # puma['min_threads'] = 4
 # puma['max_threads'] = 4
 

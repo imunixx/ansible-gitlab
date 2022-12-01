@@ -3,6 +3,8 @@
 gitlab_external_url: http://gitlab.example.com
 gitlab_access_token: 'glpat-sfstJUmFHRHvuaaouQ9Y'
 
+gitlab_puma_worker_processes: 4
+
 # See https://docs.gitlab.com/ee/administration/auth/ldap/ for config example
 gitlab_ldap_enabled: true
 gitlab_ldap_host: 'ldap.forumsys.com'

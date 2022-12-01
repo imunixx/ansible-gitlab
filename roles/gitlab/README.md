@@ -18,7 +18,8 @@ See https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html for furt
 Requirements
 ------------
 
-Python should be <=3.9 on the target host, the GitLab Hardware Requirements should be met (2 Cores / 4GB RAM).  
+Python should be <=3.9 on the target host, the GitLab Hardware Requirements should be met (2 Cores / 4GB RAM).
+**You will need at least 6GB of RAM for using LFS, due to GitLab Issue [37003](https://gitlab.com/gitlab-org/gitlab/-/issues/37003)** 
 **You will need to set the gitlab_initial_root_password parameter for a successful first-time setup.**
 
 Role Variables
@@ -36,7 +37,7 @@ Example Playbook
 License
 -------
 
-Proprietary
+MIT
 
 Author Information
 ------------------

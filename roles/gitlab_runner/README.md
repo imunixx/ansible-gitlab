@@ -26,7 +26,7 @@ Example Playbook
 License
 -------
 
-Proprietary
+MIT
 
 Author Information
 ------------------

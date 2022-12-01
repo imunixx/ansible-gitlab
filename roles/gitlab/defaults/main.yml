@@ -12,6 +12,13 @@ gitlab_ssl_letsencrypt_enable: false
 gitlab_ssl_certificate_path: "/etc/gitlab/ssl/#{node['fqdn']}.crt"
 gitlab_ssl_certificate_key_path: "/etc/gitlab/ssl/#{node['fqdn']}.key"
 
+## LFS
+gitlab_lfs_enabled: true
+gitlab_lfs_storage_path: "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
+
+## Puma
+gitlab_puma_worker_processes: 2
+
 ## LDAP
 # See https://docs.gitlab.com/ee/administration/auth/ldap/ for config example
 gitlab_ldap_enabled: false
