@@ -4,3 +4,9 @@
 [submodule "roles/docker"]
 	path = roles/docker
 	url = https://github.com/KornKalle/ansible-docker.git
+[submodule "roles/gitlab"]
+	path = roles/gitlab
+	url = https://github.com/imunixx/ansible-role-gitlab.git
+[submodule "roles/gitlab_runner"]
+	path = roles/gitlab_runner
+	url = https://github.com/imunixx/ansible-role-gitlab-runner.git
