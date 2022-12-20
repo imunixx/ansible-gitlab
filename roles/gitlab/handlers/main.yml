@@ -1,5 +1,0 @@
----
-- name: reconfigure gitlab
-  ansible.builtin.shell: 'gitlab-ctl reconfigure'
-  register: gitlab_reconfigure
-  failed_when: gitlab_reconfigure.rc != 0
